@@ -1,3 +1,20 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+    "extends": ["next/core-web-vitals", "next/typescript"],
+    "ignorePatterns": ["*.json", "*.md"],
+    "rules": {
+        "prefer-const": "error",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "curly": ["error", "all"],
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error", "info"]
+            }
+        ]
+    }
 }
