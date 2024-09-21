@@ -21,7 +21,7 @@ export default function Phrase() {
     function onTextChange(event: FormEvent<HTMLTextAreaElement>) {
         setTextForm({
             ...textForm,
-            text: event.target.value,
+            text: event.currentTarget.value,
         });
     }
 
@@ -44,7 +44,7 @@ export default function Phrase() {
     }
 
     return (
-        <div className="mx-auto h-fit w-full max-w-screen-md px-md md:px-lg mt-32">
+        <div className="mx-auto h-fit w-full max-w-screen-md px-md md:px-lg mt-32 pb-4">
             <form onSubmit={optimizeText} className="px-4 w-full grid">
                 <p className="text-2xl mx-auto">Optimize any text</p>
                 <textarea
@@ -64,7 +64,7 @@ export default function Phrase() {
                     {textForm.text.length}/280
                 </div>
                 {response.length > 0 ? (
-                    <div className="card mt-4 shadow-sm border border-secondary">
+                    <div className="card border border-secondary mt-4 shadow-sm">
                         <div className="card-body">
                             <div className="w-full flex justify-between items-center">
                                 <p className="card-title">Optimized text</p>
