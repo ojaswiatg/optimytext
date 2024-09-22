@@ -3,13 +3,24 @@ export enum EDataTheme {
     BUSINESS = "business",
 }
 
-export const TEXT_TONES = [
-    { id: "professional", text: "Professional", emoji: "💼" },
-    { id: "casual", text: "Casual", emoji: "✍️" },
-    { id: "friendly", text: "Friendly", emoji: "🤝" },
-    { id: "academic", text: "Academic", emoji: "🎓" },
-    { id: "funny", text: "Funny", emoji: "😆" },
-    { id: "interesting", text: "Interesting", emoji: "🤔" },
-    { id: "curious", text: "Curious", emoji: "🧐" },
-    { id: "surprise", text: "Surprise Me!", emoji: "🎁" },
+export enum ETextTones {
+    PROFESSIONAL = "professional",
+    CASUAL = "casual",
+    FRIENDLY = "friendly",
+    ACADEMIC = "academic",
+    FUNNY = "funny",
+    INTERESTING = "interesting",
+    CURIOUS = "curious",
+    SURPRISE = "surprise",
+}
+
+export const TEXT_TONES: { id: ETextTones; text: string; emoji: string }[] = [
+    { id: ETextTones.PROFESSIONAL, text: "Professional", emoji: "💼" },
+    { id: ETextTones.CASUAL, text: "Casual", emoji: "✍️" },
+    { id: ETextTones.FRIENDLY, text: "Friendly", emoji: "🤝" },
+    { id: ETextTones.ACADEMIC, text: "Academic", emoji: "🎓" },
+    { id: ETextTones.FUNNY, text: "Funny", emoji: "😆" },
+    { id: ETextTones.INTERESTING, text: "Interesting", emoji: "🤔" },
+    { id: ETextTones.CURIOUS, text: "Curious", emoji: "🧐" },
+    { id: ETextTones.SURPRISE, text: "Surprise Me!", emoji: "🎁" },
 ];
