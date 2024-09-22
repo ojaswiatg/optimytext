@@ -7,3 +7,5 @@ export const HistorySchema = z.object({
     date: z.number(),
     user_id: z.string(),
 });
+
+export type THistorySchema = z.infer<typeof HistorySchema>;
