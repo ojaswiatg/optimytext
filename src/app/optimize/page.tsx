@@ -75,7 +75,7 @@ export default function Phrase() {
     }
 
     return (
-        <div className="mx-auto h-fit w-full max-w-screen-md px-md md:px-lg mt-8 pb-4">
+        <div className="mx-auto h-fit w-full max-w-screen-md px-md md:px-lg mt-8 md:mt-24 pb-4">
             <form onSubmit={optimizeText} className="px-4 w-full grid">
                 <p className="text-2xl mx-auto">Optimize any text</p>
                 <textarea
