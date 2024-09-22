@@ -1,18 +1,35 @@
 "use client";
 
+import { LOGIN_FORM_SCHEMA } from "@/lib/constants";
+import { TLoginFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { FormEvent, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-export type TSignupProps = {
+export type TLoginProps = {
+    switchToSignupTab: () => void;
     className?: string;
 };
 
-export default function Signup({ className }: TSignupProps) {
+export default function Signup({ switchToSignupTab, className }: TLoginProps) {
     const [showPassword, setShowPassword] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        setError,
+    } = useForm<TLoginFormSchema>({
+        resolver: zodResolver(LOGIN_FORM_SCHEMA),
+    });
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        console.log("Form submitted...");
+    async function onSubmit(data: TLoginFormSchema) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        console.log("SUCCESS", data);
+
+        // set errors from server
+        setError("email", { type: "server", message: "Invalid email input" });
     }
 
     function loginWithGoogle() {
@@ -25,47 +42,73 @@ export default function Signup({ className }: TSignupProps) {
 
     return (
         <div className={cn("h-full w-full grid justify-center", className)}>
-            <form className="grid gap-4 mt-4" onSubmit={handleSubmit}>
-                <label
-                    htmlFor="name"
-                    className="input input-bordered flex items-center gap-2"
-                >
-                    <div className="i-mdi-email h-4 w-4" />
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        className="w-64"
-                    />
-                </label>
-                <label
-                    htmlFor="password"
-                    className="input input-bordered flex items-center gap-2"
-                >
-                    <div className="i-mdi-key-variant h-4 w-4" />
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        placeholder="Password"
-                        className="w-64"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => setShowPassword((prev) => !prev)}
+            <form className="grid gap-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+                <div className="grid gap-2">
+                    <label
+                        htmlFor="name"
+                        className="input input-bordered flex items-center gap-2"
                     >
-                        <div
-                            className={cn(
-                                {
-                                    "i-mdi-eye": !showPassword,
-                                    "i-mdi-eye-off": showPassword,
-                                },
-                                "h-4 w-4",
-                            )}
+                        <div className="i-mdi-email h-4 w-4" />
+                        <input
+                            {...register("email")}
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            disabled={isSubmitting}
+                            className="w-64"
                         />
-                    </button>
-                </label>
-                <button type="submit" className="btn btn-primary text-white">
-                    Login
+                    </label>
+                    {errors.email ? (
+                        <p className="text-sm text-error">
+                            {errors.email.message}
+                        </p>
+                    ) : null}
+                </div>
+                <div className="grid gap-2">
+                    <label
+                        htmlFor="password"
+                        className="input input-bordered flex items-center gap-2"
+                    >
+                        <div className="i-mdi-key-variant h-4 w-4" />
+                        <input
+                            {...register("password")}
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            placeholder="Password"
+                            disabled={isSubmitting}
+                            className="w-64"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                        >
+                            <div
+                                className={cn(
+                                    {
+                                        "i-mdi-eye": !showPassword,
+                                        "i-mdi-eye-off": showPassword,
+                                    },
+                                    "h-4 w-4",
+                                )}
+                            />
+                        </button>
+                    </label>
+                    {errors.password ? (
+                        <p className="text-sm text-error">
+                            {errors.password.message}
+                        </p>
+                    ) : null}
+                </div>
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-primary text-white"
+                >
+                    {isSubmitting ? (
+                        <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                        "Log in"
+                    )}
                 </button>
             </form>
 
@@ -76,15 +119,24 @@ export default function Signup({ className }: TSignupProps) {
                 onClick={loginWithGoogle}
             >
                 <div className="i-mdi-google h-4 w-4" />
-                <p>Login with Google</p>
+                <p>Log in with Google</p>
             </button>
             <button
                 className="btn btn-outline btn-primary flex items-center justify-center text-black mt-4"
                 onClick={loginWithGithub}
             >
                 <div className="i-mdi-github h-4 w-4" />
-                <p>Login with Github</p>
+                <p>Log in with Github</p>
             </button>
+            <p className="text-sm mt-2">
+                Don&apos;t have an account?
+                <button
+                    className="btn btn-primary btn-link -ml-2"
+                    onClick={switchToSignupTab}
+                >
+                    Sign up
+                </button>
+            </p>
         </div>
     );
 }

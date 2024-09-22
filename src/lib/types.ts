@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-export const HistorySchema = z.object({
-    id: z.string(),
-    message: z.string(),
-    role: z.string(),
-    date: z.number(),
-    user_id: z.string(),
-});
+import {
+    HISTORY_SCHEMA,
+    LOGIN_FORM_SCHEMA,
+    SIGNUP_FORM_SCHEMA,
+} from "./constants";
 
-export type THistorySchema = z.infer<typeof HistorySchema>;
+export type THistorySchema = z.infer<typeof HISTORY_SCHEMA>;
+export type TSignupFormSchema = z.infer<typeof SIGNUP_FORM_SCHEMA>;
+export type TLoginFormSchema = z.infer<typeof LOGIN_FORM_SCHEMA>;

@@ -85,7 +85,7 @@ export default function Phrase() {
                     onChange={handleInputChange}
                     rows={4}
                     className="textarea textarea-primary w-full mt-4 shadow-sm"
-                    placeholder="Enter your text here..."
+                    placeholder="Enter your text..."
                 ></textarea>
                 <div
                     className={cn("w-fit mt-2 ml-auto text-sm", {

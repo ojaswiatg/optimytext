@@ -21,7 +21,7 @@ export default function AuthTab() {
                     })}
                     onClick={() => setActiveTab(ETabs.LOGIN)}
                 >
-                    Login
+                    Log in
                 </button>
                 <button
                     className={cn("tab", {
@@ -29,11 +29,15 @@ export default function AuthTab() {
                     })}
                     onClick={() => setActiveTab(ETabs.SIGNUP)}
                 >
-                    Signup
+                    Sign up
                 </button>
             </div>
-            {activeTab === ETabs.LOGIN ? <Login /> : null}
-            {activeTab === ETabs.SIGNUP ? <Signup /> : null}
+            {activeTab === ETabs.LOGIN ? (
+                <Login switchToSignupTab={() => setActiveTab(ETabs.SIGNUP)} />
+            ) : null}
+            {activeTab === ETabs.SIGNUP ? (
+                <Signup switchToLoginTab={() => setActiveTab(ETabs.LOGIN)} />
+            ) : null}
         </div>
     );
 }
