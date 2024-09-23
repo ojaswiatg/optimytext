@@ -2,8 +2,6 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { CoreMessage, streamText } from "ai";
 import { NextRequest } from "next/server";
 
-export const MAX_DURATION = 30;
-
 const groq = createOpenAI({
     baseURL: "https://api.groq.com/openai/v1",
     apiKey: process.env.GROQ_API_KEY,

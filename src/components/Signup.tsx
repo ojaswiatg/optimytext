@@ -19,7 +19,7 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        setError,
+        // setError,
     } = useForm<TSignupFormSchema>({
         resolver: zodResolver(SIGNUP_FORM_SCHEMA),
     });
@@ -29,10 +29,10 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
             await signup(data);
 
             // set errors from server
-            setError("email", {
-                type: "server",
-                message: "Invalid email input",
-            });
+            // setError("email", {
+            //     type: "server",
+            //     message: "Invalid email input",
+            // });
         } catch (error) {
             console.error(error);
         }

@@ -1,5 +1,6 @@
 "use client";
 
+import { login } from "@/actions/auth";
 import { LOGIN_FORM_SCHEMA } from "@/lib/constants";
 import { TLoginFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -18,18 +19,17 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        setError,
+        // setError,
     } = useForm<TLoginFormSchema>({
         resolver: zodResolver(LOGIN_FORM_SCHEMA),
     });
 
     async function onSubmit(data: TLoginFormSchema) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        console.log("SUCCESS", data);
-
-        // set errors from server
-        setError("email", { type: "server", message: "Invalid email input" });
+        try {
+            await login(data);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     function loginWithGoogle() {

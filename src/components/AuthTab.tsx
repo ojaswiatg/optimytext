@@ -8,12 +8,13 @@ import { useState } from "react";
 
 type TAuthTabProps = {
     selectedTab: EAuthTabs;
+    className?: string;
 };
 
-export default function AuthTab({ selectedTab }: TAuthTabProps) {
+export default function AuthTab({ selectedTab, className }: TAuthTabProps) {
     const [activeTab, setActiveTab] = useState(selectedTab);
     return (
-        <div className="h-fit mt-24 w-fit mx-auto md:mt-48">
+        <div className={cn("h-fit w-fit", className)}>
             <div role="tablist" className="tabs tabs-bordered mb-4">
                 <button
                     className={cn("tab", {

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { TUserContext } from "./types";
+
 export enum EDataTheme {
     CORPORATE = "corporate",
     BUSINESS = "business",
@@ -81,3 +83,8 @@ export enum EAuthTabs {
     LOGIN,
     SIGNUP,
 }
+
+export const AUTH_PATHS = ["/login", "/signup"];
+export const USER_AUTH_PATHS = ["/history"];
+
+export const USER_CONTEXT_INIT: TUserContext = { email: "" };

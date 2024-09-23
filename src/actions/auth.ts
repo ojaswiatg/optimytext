@@ -1,18 +1,13 @@
 "use server";
 
 import { LOGIN_FORM_SCHEMA, SIGNUP_FORM_SCHEMA } from "@/lib/constants";
-import { TSignupFormSchema } from "@/lib/types";
+import { TLoginFormSchema, TSignupFormSchema } from "@/lib/types";
 import { getFormattedZodErrors } from "@/lib/utils";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function login(formData: FormData) {
-    const creds = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-    };
-
+export async function login(creds: TLoginFormSchema) {
     const validation = LOGIN_FORM_SCHEMA.safeParse(creds);
     if (!validation.success) {
         return {
@@ -24,11 +19,9 @@ export async function login(formData: FormData) {
 
     const supabase = createSupabaseServerClient();
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
     const data = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
+        email: creds.email,
+        password: creds.password,
     };
 
     const { error } = await supabase.auth.signInWithPassword(data);
