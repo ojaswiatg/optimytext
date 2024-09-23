@@ -1,5 +1,5 @@
 {
-    "name": "optimytext",
+    "name": "tonely",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -15,6 +15,8 @@
     "dependencies": {
         "@ai-sdk/openai": "^0.0.61",
         "@hookform/resolvers": "^3.9.0",
+        "@supabase/ssr": "^0.5.1",
+        "@supabase/supabase-js": "^2.45.4",
         "ai": "^3.4.0",
         "axios": "^1.7.7",
         "lodash-es": "^4.17.21",

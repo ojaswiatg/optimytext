@@ -1,5 +1,6 @@
 "use client";
 
+import { signup } from "@/actions/auth";
 import { SIGNUP_FORM_SCHEMA } from "@/lib/constants";
 import { TSignupFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -24,12 +25,17 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
     });
 
     async function onSubmit(data: TSignupFormSchema) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        try {
+            await signup(data);
 
-        console.log("SUCCESS", data);
-
-        // set errors from server
-        setError("email", { type: "server", message: "Invalid email input" });
+            // set errors from server
+            setError("email", {
+                type: "server",
+                message: "Invalid email input",
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     function signupWithGoogle() {
@@ -69,7 +75,7 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
                         htmlFor="password"
                         className="input input-bordered flex items-center gap-2"
                     >
-                        <div className="i-mdi-key-variant h-4 w-4" />
+                        <div className="i-mdi-form-textbox-password h-4 w-4" />
                         <input
                             {...register("password")}
                             type={showPassword ? "text" : "password"}
@@ -104,7 +110,7 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
                         htmlFor="confirmPassword"
                         className="input input-bordered flex items-center gap-2"
                     >
-                        <div className="i-mdi-key-variant h-4 w-4" />
+                        <div className="i-mdi-form-textbox-password h-4 w-4" />
                         <input
                             {...register("confirmPassword")}
                             type={showPassword ? "text" : "password"}

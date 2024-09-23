@@ -69,7 +69,7 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
                         htmlFor="password"
                         className="input input-bordered flex items-center gap-2"
                     >
-                        <div className="i-mdi-key-variant h-4 w-4" />
+                        <div className="i-mdi-form-textbox-password h-4 w-4" />
                         <input
                             {...register("password")}
                             type={showPassword ? "text" : "password"}

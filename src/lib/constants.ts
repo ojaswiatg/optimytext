@@ -65,6 +65,10 @@ export const LOGIN_FORM_SCHEMA = AUTH_FORM_SCHEMA.omit({
     confirmPassword: true,
 });
 
+export const OTP_FORM_SCHEMA = z.object({
+    otp: z.number(),
+});
+
 export const HISTORY_SCHEMA = z.object({
     id: z.string(),
     message: z.string(),
@@ -72,3 +76,8 @@ export const HISTORY_SCHEMA = z.object({
     date: z.number(),
     user_id: z.string(),
 });
+
+export enum EAuthTabs {
+    LOGIN,
+    SIGNUP,
+}
