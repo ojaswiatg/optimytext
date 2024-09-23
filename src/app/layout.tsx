@@ -1,3 +1,4 @@
+import AuthCheck from "@/components/AuthCheck";
 import Navbar from "@/components/Navbar";
 import Providers from "@/providers";
 
@@ -12,6 +13,7 @@ export default function RootLayout({
         <html lang="en" className="h-full w-full" suppressHydrationWarning>
             <body className="h-fit w-full">
                 <Providers>
+                    <AuthCheck />
                     <Navbar />
                     {children}
                 </Providers>

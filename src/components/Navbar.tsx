@@ -5,7 +5,7 @@ import { AUTH_PATHS, USER_AUTH_PATHS } from "@/lib/constants";
 import { includes } from "lodash-es";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import ToggleTheme from "./ToggleTheme";
 
@@ -13,15 +13,22 @@ export default function Navbar() {
     const pathName = usePathname();
     const { user } = useContext(UserContext);
 
-    const hideLoginButton =
-        includes([...AUTH_PATHS, ...USER_AUTH_PATHS], pathName) || !!user.email;
+    const [hideLoginButton, setHideLoginButton] = useState(false);
+    const [navbarKey, setNavbarKey] = useState("init-navbar-key");
 
-    console.log("user: ", user);
+    useEffect(() => {
+        setHideLoginButton(
+            includes([...AUTH_PATHS, ...USER_AUTH_PATHS], pathName) ||
+                !!user.email,
+        );
+    }, [user, pathName]);
 
     return (
-        <nav className="w-full h-12 bg-primary flex items-center justify-between px-4">
+        <nav
+            key={navbarKey}
+            className="w-full h-12 bg-primary flex items-center justify-between px-4"
+        >
             {/* if logged in, show a burger menu with: history, logout */}
-
             {!hideLoginButton ? (
                 <Link
                     href="/login"
