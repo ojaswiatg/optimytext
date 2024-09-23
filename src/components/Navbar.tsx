@@ -1,19 +1,22 @@
 "use client";
 
+import { UserContext } from "@/context/user";
 import { AUTH_PATHS, USER_AUTH_PATHS } from "@/lib/constants";
 import { includes } from "lodash-es";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 
 import ToggleTheme from "./ToggleTheme";
 
 export default function Navbar() {
     const pathName = usePathname();
-    const hideLoginButton = includes(
-        [...AUTH_PATHS, USER_AUTH_PATHS],
-        pathName,
-    );
+    const { user } = useContext(UserContext);
+
+    const hideLoginButton =
+        includes([...AUTH_PATHS, ...USER_AUTH_PATHS], pathName) || !!user.email;
+
+    console.log("user: ", user);
 
     return (
         <nav className="w-full h-12 bg-primary flex items-center justify-between px-4">

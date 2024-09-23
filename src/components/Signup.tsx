@@ -1,9 +1,9 @@
 "use client";
 
 import { signup } from "@/actions/auth";
-import { SIGNUP_FORM_SCHEMA } from "@/lib/constants";
 import { TSignupFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { SIGNUP_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

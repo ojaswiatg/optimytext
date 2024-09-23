@@ -1,11 +1,13 @@
 "use client";
 
 import { login } from "@/actions/auth";
-import { LOGIN_FORM_SCHEMA } from "@/lib/constants";
-import { TLoginFormSchema } from "@/lib/types";
+import { UserContext } from "@/context/user";
+import { TLoginFormSchema, TUser } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { LOGIN_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export type TLoginProps = {
@@ -15,6 +17,10 @@ export type TLoginProps = {
 
 export default function Signup({ switchToSignupTab, className }: TLoginProps) {
     const [showPassword, setShowPassword] = useState(false);
+
+    const { setUser } = useContext(UserContext);
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -26,7 +32,13 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
 
     async function onSubmit(data: TLoginFormSchema) {
         try {
-            await login(data);
+            const response = await login(data);
+            if (response.success) {
+                setUser(response.data?.user as TUser);
+                router.push("/");
+            } else {
+                console.error(response.form_errors);
+            }
         } catch (error) {
             console.error(error);
         }

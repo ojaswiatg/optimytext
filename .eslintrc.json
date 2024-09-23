@@ -11,7 +11,7 @@
         ],
         "curly": ["error", "all"],
         "no-console": [
-            "warn",
+            "error",
             {
                 "allow": ["warn", "error", "info"]
             }

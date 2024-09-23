@@ -1,13 +1,12 @@
 "use client";
 
-import { USER_CONTEXT_INIT } from "@/lib/constants";
-import { TUserContext } from "@/lib/types";
+import { TUser, TUserContext } from "@/lib/types";
 import { createContext, useState } from "react";
 
-export const UserContext = createContext({});
+export const UserContext = createContext<TUserContext>({} as TUserContext);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<TUserContext>(USER_CONTEXT_INIT);
+    const [user, setUser] = useState<TUser>({ email: "" });
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
@@ -15,5 +14,3 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         </UserContext.Provider>
     );
 }
-
-export const useUser = createContext(UserContext);

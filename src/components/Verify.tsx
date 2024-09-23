@@ -1,8 +1,8 @@
 "use client";
 
-import { OTP_FORM_SCHEMA } from "@/lib/constants";
 import { TOTPFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { OTP_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
