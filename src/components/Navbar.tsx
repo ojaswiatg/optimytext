@@ -1,18 +1,27 @@
+import Link from "next/link";
 import React from "react";
 
 import ToggleTheme from "./ToggleTheme";
 
-function Navbar() {
+export default function Navbar() {
+    // const showAuthOptions = true;
+
     return (
-        <nav className="w-full h-12 bg-primary flex items-center px-4">
+        <nav className="w-full h-12 bg-primary flex items-center justify-between px-4">
             {/* if logged in, show a burger menu with: history, logout */}
 
-            <button className="btn btn-outline bg-primary border-white text-white btn-sm">
+            <Link
+                href="/login"
+                className="btn btn-outline bg-primary border-white text-white btn-sm"
+            >
                 Log in
-            </button>
-            <ToggleTheme className="ml-auto" />
+            </Link>
+
+            <Link className="text-xl font-bold mr-8 text-white" href="/">
+                Tonely
+            </Link>
+
+            <ToggleTheme />
         </nav>
     );
 }
-
-export default Navbar;

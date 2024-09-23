@@ -32,14 +32,16 @@ export default function ToggleTheme({ className }: { className?: string }) {
             {mounted ? (
                 resolvedTheme === "emerald" ? (
                     <button onClick={toggleTheme}>
-                        <div className="i-mdi-weather-night text-white h-5 w-5" />
+                        <div className="i-mdi-weather-night text-white h-5 w-5 mt-1" />
                     </button>
                 ) : (
                     <button onClick={toggleTheme}>
-                        <div className="i-mdi-weather-sunny text-white h-5 w-5" />
+                        <div className="i-mdi-weather-sunny text-white h-5 w-5 mt-1" />
                     </button>
                 )
-            ) : null}
+            ) : (
+                <div className="h-5 w-5 mt-1" />
+            )}
         </div>
     );
 }
