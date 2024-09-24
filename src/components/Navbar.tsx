@@ -13,8 +13,7 @@ export default function Navbar() {
     const pathName = usePathname();
     const { user } = useContext(UserContext);
 
-    const [hideLoginButton, setHideLoginButton] = useState(false);
-    const [navbarKey, setNavbarKey] = useState("init-navbar-key");
+    const [hideLoginButton, setHideLoginButton] = useState(true);
 
     useEffect(() => {
         setHideLoginButton(
@@ -24,10 +23,7 @@ export default function Navbar() {
     }, [user, pathName]);
 
     return (
-        <nav
-            key={navbarKey}
-            className="w-full h-12 bg-primary flex items-center justify-between px-4"
-        >
+        <nav className="w-full h-12 bg-primary flex items-center justify-between px-4 relative">
             {/* if logged in, show a burger menu with: history, logout */}
             {!hideLoginButton ? (
                 <Link
@@ -38,11 +34,14 @@ export default function Navbar() {
                 </Link>
             ) : null}
 
-            <Link className="text-xl font-bold mr-8 text-white" href="/">
+            <Link
+                className="text-xl font-bold mr-8 text-white absolute left-[50%] -translate-x-1/2"
+                href="/"
+            >
                 Tonely
             </Link>
 
-            <ToggleTheme />
+            <ToggleTheme className="ml-auto" />
         </nav>
     );
 }

@@ -1,0 +1,16 @@
+@keyframes fade-in {
+    from {
+        top: 0%;
+    }
+    to {
+        top: 5%;
+    }
+}
+
+.alert-visible {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fade-in 0.2s 1;
+}

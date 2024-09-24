@@ -1,12 +1,14 @@
 "use client";
 
 import { login } from "@/actions/auth";
+import { AlertContext } from "@/context/alert";
+import { EAlertType } from "@/lib/constants";
 import { TLoginFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { LOGIN_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export type TLoginProps = {
@@ -15,9 +17,10 @@ export type TLoginProps = {
 };
 
 export default function Signup({ switchToSignupTab, className }: TLoginProps) {
-    const [showPassword, setShowPassword] = useState(false);
-
     const router = useRouter();
+    const { pushAlert } = useContext(AlertContext);
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         register,
@@ -34,7 +37,11 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
             if (response.success) {
                 router.push("/");
             } else {
-                console.error(response.form_errors);
+                pushAlert({
+                    id: Date.now(),
+                    type: EAlertType.ERROR,
+                    message: response?.error ?? "",
+                });
             }
         } catch (error) {
             console.error(error);

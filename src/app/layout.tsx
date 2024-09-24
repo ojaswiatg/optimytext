@@ -1,3 +1,4 @@
+import AlertsWrapper from "@/components/AlertsWrapper";
 import AuthCheck from "@/components/AuthCheck";
 import Navbar from "@/components/Navbar";
 import Providers from "@/providers";
@@ -15,6 +16,7 @@ export default function RootLayout({
                 <Providers>
                     <AuthCheck />
                     <Navbar />
+                    <AlertsWrapper />
                     {children}
                 </Providers>
             </body>

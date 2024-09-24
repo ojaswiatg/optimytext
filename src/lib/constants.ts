@@ -32,3 +32,10 @@ export enum EAuthTabs {
 
 export const AUTH_PATHS = ["/login", "/signup"];
 export const USER_AUTH_PATHS = ["/history"];
+
+export enum EAlertType {
+    INFO = "info",
+    SUCCESS = "success",
+    ERROR = "error",
+    WARNING = "warning",
+}

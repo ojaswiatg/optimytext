@@ -36,7 +36,11 @@ export const SIGNUP_FORM_SCHEMA = AUTH_FORM_SCHEMA.refine(
 
 export const LOGIN_FORM_SCHEMA = AUTH_FORM_SCHEMA.omit({
     confirmPassword: true,
-});
+}).merge(
+    z.object({
+        password: z.string({ required_error: "Password is required" }),
+    }),
+);
 
 export const OTP_FORM_SCHEMA = z.object({
     otp: z.number(),

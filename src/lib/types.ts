@@ -7,6 +7,8 @@ import {
 import { Dispatch, SetStateAction } from "react";
 import { z } from "zod";
 
+import { EAlertType } from "./constants";
+
 export type TUser = {
     email: string;
 };
@@ -36,4 +38,17 @@ export type TUserLoginResponseData = {
 export type TUserContext = {
     user: TUser;
     setUser: Dispatch<SetStateAction<TUser>>;
+};
+
+export type TAlert = {
+    id: number;
+    type: EAlertType;
+    message: string;
+    timeout?: number;
+};
+
+export type TAlertContext = {
+    alerts: TAlert[];
+    setAlerts: Dispatch<SetStateAction<TAlert[]>>;
+    pushAlert: (_alert: TAlert) => void;
 };
