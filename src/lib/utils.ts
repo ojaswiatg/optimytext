@@ -11,7 +11,7 @@ export function getFormattedZodErrors(errors: ZodError) {
     const formattedErrors = map(errors.issues, (issue) => {
         return {
             path: issue.path[0],
-            error: issue.message,
+            message: issue.message,
         };
     });
     return formattedErrors;

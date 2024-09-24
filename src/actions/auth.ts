@@ -59,8 +59,6 @@ export async function signup(creds: TSignupFormSchema) {
 
     const supabase = createSupabaseServerClient();
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
     const data = {
         email: creds.email,
         password: creds.password,

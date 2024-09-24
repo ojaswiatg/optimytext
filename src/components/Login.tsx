@@ -7,9 +7,12 @@ import { TLoginFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { LOGIN_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { isEmpty, map } from "lodash-es";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+
+type TLoginFormFields = keyof TLoginFormSchema;
 
 export type TLoginProps = {
     switchToSignupTab: () => void;
@@ -26,7 +29,7 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        // setError,
+        setError,
     } = useForm<TLoginFormSchema>({
         resolver: zodResolver(LOGIN_FORM_SCHEMA),
     });
@@ -37,11 +40,19 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
             if (response.success) {
                 router.push("/");
             } else {
-                pushAlert({
-                    id: Date.now(),
-                    type: EAlertType.ERROR,
-                    message: response?.error ?? "",
-                });
+                if (!isEmpty(response.form_errors)) {
+                    map(response.form_errors, (error) => {
+                        setError(error.path as TLoginFormFields, {
+                            message: error.message,
+                        });
+                    });
+                } else {
+                    pushAlert({
+                        id: Date.now(),
+                        type: EAlertType.ERROR,
+                        message: response?.error ?? "",
+                    });
+                }
             }
         } catch (error) {
             console.error(error);
@@ -49,11 +60,11 @@ export default function Signup({ switchToSignupTab, className }: TLoginProps) {
     }
 
     function loginWithGoogle() {
-        console.log("Logged in with google");
+        // console.log("Logged in with google");
     }
 
     function loginWithGithub() {
-        console.log("Logged in with github");
+        // console.log("Logged in with github");
     }
 
     return (

@@ -1,12 +1,18 @@
 "use client";
 
 import { signup } from "@/actions/auth";
+import { AlertContext } from "@/context/alert";
+import { EAlertType } from "@/lib/constants";
 import { TSignupFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SIGNUP_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { isEmpty, map } from "lodash-es";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+
+type TSignupFormFields = keyof TSignupFormSchema;
 
 export type TSignupProps = {
     switchToLoginTab: () => void;
@@ -14,36 +20,50 @@ export type TSignupProps = {
 };
 
 export default function Signup({ switchToLoginTab, className }: TSignupProps) {
+    const router = useRouter();
+    const { pushAlert } = useContext(AlertContext);
+
     const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        // setError,
+        setError,
     } = useForm<TSignupFormSchema>({
         resolver: zodResolver(SIGNUP_FORM_SCHEMA),
     });
 
     async function onSubmit(data: TSignupFormSchema) {
         try {
-            await signup(data);
-
-            // set errors from server
-            // setError("email", {
-            //     type: "server",
-            //     message: "Invalid email input",
-            // });
+            const response = await signup(data);
+            if (response.success) {
+                router.push("/");
+            } else {
+                if (!isEmpty(response.form_errors)) {
+                    map(response.form_errors, (error) => {
+                        setError(error.path as TSignupFormFields, {
+                            message: error.message,
+                        });
+                    });
+                } else {
+                    pushAlert({
+                        id: Date.now(),
+                        type: EAlertType.ERROR,
+                        message: response?.error ?? "",
+                    });
+                }
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
     function signupWithGoogle() {
-        console.log("Signed up with google");
+        // console.log("Signed up with google");
     }
 
     function signupWithGithub() {
-        console.log("Signed up with github");
+        // console.log("Signed up with github");
     }
 
     return (
