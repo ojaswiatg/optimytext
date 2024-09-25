@@ -15,6 +15,9 @@ export default function AuthTab({ selectedTab, className }: TAuthTabProps) {
     const [activeTab, setActiveTab] = useState(selectedTab);
     return (
         <div className={cn("h-fit w-fit", className)}>
+            <p className="text-xl text-center mt-12 mb-4">
+                Login to save and view history
+            </p>
             <div role="tablist" className="tabs tabs-bordered mb-4">
                 <button
                     className={cn("tab", {

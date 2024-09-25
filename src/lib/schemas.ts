@@ -43,13 +43,26 @@ export const LOGIN_FORM_SCHEMA = AUTH_FORM_SCHEMA.omit({
 );
 
 export const OTP_FORM_SCHEMA = z.object({
-    otp: z.number(),
+    otp: z.preprocess(
+        (code, ctx) => {
+            if (typeof code !== "number") {
+                ctx.addIssue({
+                    path: ["otp"],
+                    message: "A valid verification code is required",
+                    code: "invalid_type",
+                    expected: "number",
+                    received: "string",
+                });
+            }
+        },
+        z.number({ required_error: "A valid verification code is required" }),
+    ),
 });
 
 export const HISTORY_SCHEMA = z.object({
     id: z.string(),
-    message: z.string(),
-    role: z.string(),
+    query: z.string(),
+    response: z.string(),
     date: z.number(),
     user_id: z.string(),
 });

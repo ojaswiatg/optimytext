@@ -39,3 +39,9 @@ export enum EAlertType {
     ERROR = "error",
     WARNING = "warning",
 }
+
+export enum EOTPOperation {
+    SIGNUP,
+    CHANGE_EMAIL,
+    FORGOT_PASSWORD,
+}

@@ -37,7 +37,12 @@ export default function Signup({ switchToLoginTab, className }: TSignupProps) {
         try {
             const response = await signup(data);
             if (response.success) {
-                router.push("/");
+                pushAlert({
+                    id: Date.now(),
+                    type: EAlertType.SUCCESS,
+                    message: response.message,
+                });
+                router.push("/verify");
             } else {
                 if (!isEmpty(response.form_errors)) {
                     map(response.form_errors, (error) => {

@@ -1,17 +1,24 @@
 "use client";
 
+import { verify } from "@/actions/auth";
+import { AlertContext } from "@/context/alert";
+import { EAlertType } from "@/lib/constants";
 import { OTP_FORM_SCHEMA } from "@/lib/schemas";
 import { TOTPFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
-export type TLoginProps = {
-    switchToSignupTab: () => void;
+export type TVerifyProps = {
     className?: string;
 };
 
-export default function Signup({ className }: TLoginProps) {
+export default function Verify({ className }: TVerifyProps) {
+    const router = useRouter();
+    const { pushAlert } = useContext(AlertContext);
+
     const {
         register,
         handleSubmit,
@@ -22,9 +29,16 @@ export default function Signup({ className }: TLoginProps) {
     });
 
     async function onSubmit(data: TOTPFormSchema) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const response = await verify(data);
 
-        console.log("SUCCESS", data);
+        if (response.success) {
+            pushAlert({
+                id: Date.now(),
+                type: EAlertType.SUCCESS,
+                message: response.message,
+            });
+            router.push("/login");
+        }
 
         // set errors from server
         setError("otp", { type: "server", message: "Invalid otp input" });
@@ -35,15 +49,15 @@ export default function Signup({ className }: TLoginProps) {
             <form className="grid gap-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-2">
                     <label
-                        htmlFor="name"
+                        htmlFor="otp"
                         className="input input-bordered flex items-center gap-2"
                     >
                         <div className="i-mdi-key h-4 w-4" />
                         <input
                             {...register("otp")}
-                            type="text"
-                            name="email"
-                            placeholder="Email"
+                            type="number"
+                            name="otp"
+                            placeholder="Verification code"
                             disabled={isSubmitting}
                             className="w-64"
                         />
