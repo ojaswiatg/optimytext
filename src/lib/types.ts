@@ -3,7 +3,7 @@ import {
     LOGIN_FORM_SCHEMA,
     OTP_FORM_SCHEMA,
     SIGNUP_FORM_SCHEMA,
-} from "@/schemas";
+} from "@/lib/schemas";
 import { Dispatch, SetStateAction } from "react";
 import { z } from "zod";
 

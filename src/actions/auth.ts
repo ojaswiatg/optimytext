@@ -1,8 +1,8 @@
 "use server";
 
+import { LOGIN_FORM_SCHEMA, SIGNUP_FORM_SCHEMA } from "@/lib/schemas";
 import { TLoginFormSchema, TSignupFormSchema } from "@/lib/types";
 import { getFormattedZodErrors } from "@/lib/utils";
-import { LOGIN_FORM_SCHEMA, SIGNUP_FORM_SCHEMA } from "@/schemas";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

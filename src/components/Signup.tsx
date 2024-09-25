@@ -3,9 +3,9 @@
 import { signup } from "@/actions/auth";
 import { AlertContext } from "@/context/alert";
 import { EAlertType } from "@/lib/constants";
+import { SIGNUP_FORM_SCHEMA } from "@/lib/schemas";
 import { TSignupFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { SIGNUP_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isEmpty, map } from "lodash-es";
 import { useRouter } from "next/navigation";

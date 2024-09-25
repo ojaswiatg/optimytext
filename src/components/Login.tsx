@@ -3,9 +3,9 @@
 import { login } from "@/actions/auth";
 import { AlertContext } from "@/context/alert";
 import { EAlertType } from "@/lib/constants";
+import { LOGIN_FORM_SCHEMA } from "@/lib/schemas";
 import { TLoginFormSchema } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { LOGIN_FORM_SCHEMA } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isEmpty, map } from "lodash-es";
 import { useRouter } from "next/navigation";
